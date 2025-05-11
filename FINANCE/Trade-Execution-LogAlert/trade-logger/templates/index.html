@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trade Logger</title>
+</head>
+
+<!-- ERROR IN SUBMISSION OF FORM!!!
+Unsupported Media Type
+Did not attempt to load JSON data because the request Content-Type was not 'application/json'. -->
+
+<body>
+  <h1>Submit a Trade</h1>
+  <form method="POST" action="/trade" enctype="application/json">
+    <label>User ID: <input type="text" name="user_id" /></label><br>
+    <label>Symbol: <input type="text" name="symbol" /></label><br>
+    <label>Quantity: <input type="number" name="qty" /></label><br>
+    <label>Price: <input type="number" step="0.01" name="price" /></label><br>
+    <label>Type:
+      <select name="type">
+        <option value="buy">Buy</option>
+        <option value="sell">Sell</option>
+      </select>
+    </label><br><br>
+    <button type="submit">Submit Trade</button>
+  </form>
+</body>
+</html>
+
