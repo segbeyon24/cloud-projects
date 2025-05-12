@@ -8,32 +8,15 @@
 - AWS S3: Upload and store receipt files
 - AWS Textract: Extract details of Uploaded files
 - AWS DynamoDB: Save and organize important data
-- AWS SES: Send summaries via email
+- AWS SES or SNS: Send summaries via email
 - AWS Lambda: Automate the whole process
 
 # Process
-- Clone and run the application
 
-- Create S3 bucket to store the log file
-  - the app generates logs and stores them in `tic_tac_toe.log` file - this file is created, if not already existing in the app's directory, everytime the game begins
-  - a cronjob runs the file `upload-log.sh` every minute, if a game has started (perhaps modify post per event).
-  - the `upload-log.sh` file sends the log file to the s3 bucket
+- S3 bucket receives a the image of a receipt (through direct uploading on the aws console or the endpoint of an application)
+- An event notification is sent to a lambda function which triggers AWS Textract to transform the details of the image (receipt) to a json format, sends the data to a dynamoDB table and triggers the sns or ses to send the result to specific emails 
 
 
-- Lambda Function: 
-  - reads the file from S3
-  - converts the content into JSON format
-  - sends it to an SNS topic.
-
-
-- S3 Bucket Notification
-  - notifies the Lambda function when a new log file is uploaded.
-
-
-- SNS Topic: 
-  - subscribers receive emails when the Lambda publishes a message.
-
-  - NB: the `process_log.sh` file should accomplish this task without the need for AWS s3, lambda and SNS cloud services, if SMTP is installed on the linux machine.
 
 # Breaking it down
 
